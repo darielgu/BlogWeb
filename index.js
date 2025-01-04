@@ -28,6 +28,9 @@ app.get("/contact", (req, res) => {
 app.get("/post", (req, res) => {
   res.render("post.ejs");
 });
+app.get("/remove",(req,res)=>{
+  res.render("remove.ejs")
+})
 
 app.post("/post", (req, res) => {
   postTitle = req.body.postTitle;
@@ -38,6 +41,22 @@ app.post("/post", (req, res) => {
   };
   posts.push(postObj)
   res.redirect("/start");
+});
+app.post("/remove", (req,res)=>{
+  let titleToRemove = req.body.titleToRemove;
+  let textToEdit = req.body.textToEdit;
+  const postIndex = posts.findIndex(p => p.title === titleToRemove); // finding where the post object is in the posts array
+
+  if (postIndex >= 0) { //If postOBJ index is not negative
+    if (textToEdit === "") { // if there is no text field just completely remove
+        // Remove the post
+        posts.splice(postIndex, 1);
+    } else {
+        // Edit the post content
+        posts[postIndex].content = textToEdit; // else just change text content
+    }
+}
+res.redirect("/start")
 });
 
 app.listen(port, () => {

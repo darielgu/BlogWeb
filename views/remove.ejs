@@ -1,0 +1,17 @@
+<%- include("partials/header.ejs") %>
+<div class="container mb-5">
+<form action="/remove" method="post">
+    <div class="form-group">
+    <label for="titleToRemove">Title of Blog to Remove / Edit
+    <input class="form-control" type="text" name="titleToRemove" placeholder="Enter the title of the blog you wish to remove" required>
+</label>
+    </div>
+    <div class="form-group">
+        <label for="textToEdit">New Text Content</label>
+        <input class="form-control" type="text" name="textToEdit" placeholder="If you wish to edit the text enter the new text here"/>
+        <br><br>
+        <button style="background-color: red;" type="submit">Enact Your Changes</button>
+    </div>
+</form>
+</div>
+<%- include("partials/footer.ejs") %>
