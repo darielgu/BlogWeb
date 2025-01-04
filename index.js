@@ -7,12 +7,20 @@ app.use(express.static("views"));
 app.use(express.static("public"));
 app.use(express.static("views/partials"));
 app.set("view engine", "ejs");
+let postTitle
+let postContent
+let posts = [];
+
+
+
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
 
 app.get("/start", (req, res) => {
-  res.render("start.ejs");
+  res.render("start.ejs", {
+    posts:posts
+  });
 });
 app.get("/contact", (req, res) => {
   res.render("contact.ejs");
@@ -22,14 +30,14 @@ app.get("/post", (req, res) => {
 });
 
 app.post("/post", (req, res) => {
-  let postTitle = req.body.postTitle;
-  let postContent = req.body.postContent;
+  postTitle = req.body.postTitle;
+  postContent = req.body.postContent;
   const postObj = {
     title: postTitle,
     content: postContent,
   };
-  console.log(postObj);
-  res.render("start.ejs");
+  posts.push(postObj)
+  res.redirect("/start");
 });
 
 app.listen(port, () => {
